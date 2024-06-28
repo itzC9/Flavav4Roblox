@@ -1,1 +1,0 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/itzC9/FlavaV4Roblox/main/NewMainScript.lua", true))()
