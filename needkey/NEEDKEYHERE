@@ -1,1 +1,173 @@
-need key bruh
+-- Load the library
+loadstring(game:HttpGet("https://raw.githubusercontent.com/itzC9/Flavav4Roblox/main/needkey/keyyyyyy.lua"))()
+
+-- Create the window
+local Window = Library.CreateLib("Every Second You Get Sword", "Midnight")
+
+-- Create a new tab
+local Tab = Window:NewTab("Home")
+
+-- Create a new section
+local Section = Tab:NewSection("Welcome To This Hub! Made By TeamC9! _notnarsyuri_#0000")
+
+-- Define buttons for each planet
+Section:NewButton("First Planet", "Teleport To First", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, -3075))
+end)
+
+Section:NewButton("Second Planet", "Teleport To Second", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, -2050))
+end)
+
+Section:NewButton("Third Planet", "Teleport To Third", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(1, 0, -1028))
+end)
+
+Section:NewButton("Fourth Planet", "Teleport To Fourth", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, -3))
+end)
+
+Section:NewButton("Fifth Planet", "Teleport To 5th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, 1021))
+end)
+
+Section:NewButton("Sixth Planet", "Teleport To 6th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, 2047))
+end)
+
+Section:NewButton("Seven Planet", "Teleport To 7th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, 3069))
+end)
+
+Section:NewButton("Eight Planet", "Teleport To 8th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(1, 0, 4096))
+end)
+
+Section:NewButton("Nine Planet", "Teleport To 9th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(1, 0, 5115))
+end)
+
+Section:NewButton("Ten Planet", "Teleport To 10th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 0, 6141))
+end)
+
+Section:NewButton("Eleven Planet", "Teleport To 11th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(2, 0, 7177))
+end)
+
+Section:NewButton("Twelve Planet", "Teleport To 12th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-2, 0, 8188))
+end)
+
+Section:NewButton("Thirteen Planet", "Teleport To 13th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-1, 0, 9211))
+end)
+
+Section:NewButton(" Last Planet", "Teleport To 15th", function()
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-3, 0, 10244))
+end)
+
+Section:NewButton("Kill Aura (needs auto clicker)", "Teleport To 14th", function()
+    if not run then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/sunsworn1020903/sunsworn1020903/main/KillAura"))()
+    task.wait(5)
+end
+getgenv().run = true
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Character = LocalPlayer.Character
+local RootPart = Character.HumanoidRootPart
+
+local Events = game:GetService("ReplicatedStorage").Events
+local RemoteEvents = Events.Remote
+
+local AntiCheat = workspace.AntiCheat
+local Checks = {
+    Blue = AntiCheat.Blue,
+    Red = AntiCheat.Red
+}
+local Areas = {
+    Red = CFrame.new(0, 14, 100),
+    Blue = CFrame.new(0, 14, -100),
+    Underground = CFrame.new(0,0,0),
+    Safespot = CFrame.new(0, -5, 0)
+}
+local function Touch(part)
+    local OldCFrame = RootPart.CFrame
+    RootPart.CFrame = part.CFrame
+    wait(.25)
+end
+local function isUnderground(Character)
+    if Character.HumanoidRootPart.Position.Y < 11.7 then
+        return true
+    end
+    return false
+end
+local function CurrentArea(Player)
+    local PlayerCharacter = Player.Character
+    local RootPart = PlayerCharacter:WaitForChild("HumanoidRootPart")
+    if not isUnderground(PlayerCharacter) then
+        if RootPart.Position.Z > 0 then
+            return "Red"
+        elseif RootPart.Position.Z < 0 then
+            return "Blue"
+        end
+    end
+    return "Underground"
+end
+local function TeleportToArea(Area)
+    RootPart.CFrame = Areas[Area]
+    wait(.25)
+end
+local function SwitchArea(NewArea)
+    local CurrentArea = CurrentArea(LocalPlayer)
+    if CurrentArea == NewArea then return end
+    if CurrentArea ~= "Underground" and NewArea ~= "Safespot" then
+        Touch(Checks[CurrentArea])
+    end
+    if NewArea ~= "Underground" and NewArea ~= "Safespot" then 
+        Touch(Checks[NewArea])
+    end
+    TeleportToArea(NewArea)
+end
+local function Shoot(Part)
+    RemoteEvents.ShotTarget:FireServer("Sword", Part.Position)
+end
+local function TeleportTo(Part)
+    RootPart.CFrame = CFrame.new(Part.Position)
+end
+local function Goto(Player)
+    if not Player.Character then return end
+    local TargetArea = CurrentArea(Player)
+    SwitchArea(TargetArea)
+    TeleportTo(Player.Character.HumanoidRootPart)
+end
+game:GetService("RunService").RenderStepped:Connect(function()
+        Character = LocalPlayer.Character
+        RootPart = Character:WaitForChild("HumanoidRootPart")
+end)
+while wait() do
+    for i, Player in pairs(game.Players:GetPlayers()) do
+        if Player.TeamColor.Name == LocalPlayer.TeamColor.Name then continue end
+        if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:WaitForChild("Humanoid").Health > 0 then
+            if Player.Character:FindFirstChild("ForceField") then continue end
+            Goto(Player)
+            task.wait(.7)
+            SwitchArea("Safespot")
+        end
+    end
+end
+end)
+
+Section:NewButton("Killaura 2 (needs clicker fast) ", "Teleport To 14th", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Pikaruru/Scripts/main/swordsimulator.lua"))()
+--https://www.roblox.com/games/7026949294/Sword-Simulator
+end)
+
+Section:NewButton("Autocliker", "Teleport To 14th", function()
+    getgenv().autoclicker = true -- true/false
+-- Bac0nH1ckOff
+while game:GetService("RunService").RenderStepped:wait() do
+	if not autoclicker then break end
+	game:GetService("ReplicatedStorage"):WaitForChild("Library"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ClicksService"):WaitForChild("RE"):WaitForChild("Click"):FireServer()
+end
+end)
