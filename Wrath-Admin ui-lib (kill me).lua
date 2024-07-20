@@ -1,4 +1,4 @@
-local ExecutionTime = tick();
+local ExecutionTime = tick()
 ------- MAIN SCRIPT -------
 -- Wrath Admin ui lib
 
@@ -30,7 +30,7 @@ local Settings = {
 --// Tables:
 
 local Commands = {
-   “Test / test -- Test Command”
+    "Test / test -- Test Command"
 }
 
 local function GetPlayer(searchString, player)
