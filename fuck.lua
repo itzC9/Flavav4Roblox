@@ -30,7 +30,7 @@ local Settings = {
 --// Tables:
 
 local Commands = {
-    "Test / test" -- Test Command
+    "Test / test", -- Test Command
 }
 
 local function GetPlayer(searchString, player)
