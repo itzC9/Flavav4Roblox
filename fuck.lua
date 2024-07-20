@@ -1,10 +1,6 @@
 local ExecutionTime = tick()
-------- MAIN SCRIPT -------
--- Wrath Admin ui lib
-
--- Script:
 local Players = game:GetService("Players")
-local Teams = game.Teams
+local Teams = game:GetService("Teams")
 local TeleportService = game:GetService("TeleportService")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -25,12 +21,8 @@ local Settings = {
     ToggleGui = "RightControl"
 }
 
---// Settings:
-
---// Tables:
-
 local Commands = {
-    "Test / test", -- Test Command
+    "test / test", -- test command
 }
 
 local function GetPlayer(searchString, player)
@@ -85,9 +77,10 @@ function UseCommand(MESSAGE)
         return NAME:lower() == CommandName:lower()
     end
 
-    --// Commands
-    if CMD("Test") or CMD("test") then
-        Notify("Success", "Test", 2)
+    -- Commands
+    if CMD("test") then
+        -- Your command implementation here
+        print("Success: Test command executed")
     end
 end
    
