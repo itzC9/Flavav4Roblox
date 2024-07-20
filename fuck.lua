@@ -18,7 +18,7 @@ local isMobile = UserInputService.TouchEnabled
 
 local Settings = {
     Prefix = ".",
-    ToggleGui = "RightControl"
+    ToggleGui = "RightControl", 
 }
 
 local Commands = {
